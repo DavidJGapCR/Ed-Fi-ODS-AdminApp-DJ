@@ -70,7 +70,7 @@ services:
 
   adminapp:
     build:
-      context: ../../Docker/
+      context: ../../Docker
       dockerfile: pgsql.Dockerfile
     environment:
       POSTGRES_USER: "${POSTGRES_USER}"
