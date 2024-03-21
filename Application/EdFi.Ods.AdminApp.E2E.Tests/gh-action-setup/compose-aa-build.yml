@@ -20,7 +20,7 @@ services:
 
   db-admin:
     build:
-      context: ../../DB-Admin/Alpine/pgsql
+      context: ../../ods-docker/DB-Admin/Alpine/pgsql
       dockerfile: Dockerfile
     environment:
       POSTGRES_USER: "${POSTGRES_USER}"
