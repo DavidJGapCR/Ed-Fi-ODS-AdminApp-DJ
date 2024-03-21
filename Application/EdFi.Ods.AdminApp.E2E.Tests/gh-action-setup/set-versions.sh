@@ -7,12 +7,12 @@ WEB_PACKAGE=$(nuget list $WEB -Source $NUGET_URL -PreRelease)
 WEB_VERSION=$(echo $WEB_PACKAGE| cut -d' ' -f 2)
 echo "Using $WEB Version: $WEB_VERSION"
 
-# DB="EdFi.Suite3.ODS.AdminApp.Database"
-# DB_PACKAGE=$(nuget list $DB -Source $NUGET_URL -PreRelease)
-# DB_VERSION=$(echo $DB_PACKAGE| cut -d' ' -f 2)
-# echo "Using $DB Version: $DB_VERSION"
+DB="EdFi.Suite3.ODS.AdminApp.Database"
+DB_PACKAGE=$(nuget list $DB -Source $NUGET_URL -PreRelease)
+DB_VERSION=$(echo $DB_PACKAGE| cut -d' ' -f 2)
+echo "Using $DB Version: $DB_VERSION"
 
-# sed -i -E "s/ENV ADMINAPP_DATABASE_VERSION=\"[0-9]+.[0-9]+.[0-9]+(-alpha\.+[0-9]+.[0-9]+)?\"/ENV ADMINAPP_DATABASE_VERSION=\"$DB_VERSION\"/w changelog.txt" ods-docker/DB-Admin/Alpine/pgsql/Dockerfile
+sed -i -E "s/ENV ADMINAPP_DATABASE_VERSION=\"[0-9]+.[0-9]+.[0-9]+(-alpha\.+[0-9]+.[0-9]+)?\"/ENV ADMINAPP_DATABASE_VERSION=\"$DB_VERSION\"/w changelog.txt" ods-docker/DB-Admin/Alpine/pgsql/Dockerfile
 
 # sed -i -E "s/ARG VERSION=\"[0-9]+.[0-9]+.[0-9]+(-alpha\.+[0-9]+.[0-9]+)?\"/ARG VERSION=\"$WEB_VERSION\"/w changelog.txt" main/Docker/pgsql.Dockerfile
 sed -i -E "s/ARG VERSION=latest/ARG VERSION=\"$WEB_VERSION\"/w changelog.txt" main/Docker/pgsql.Dockerfile
