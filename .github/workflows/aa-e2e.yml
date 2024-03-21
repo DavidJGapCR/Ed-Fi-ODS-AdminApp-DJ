@@ -60,37 +60,43 @@ jobs:
       - name: Set environment
         run: mv .env.example .env
         working-directory: main/Application/EdFi.Ods.AdminApp.E2E.Tests
+
+      - name: check containers
+        run: |
+          chmod +x ./main/Application/checkcontainers.sh
+          ./main/Application/checkcontainers.sh
+
       - name: Run tests
         run: npm run report
         working-directory: main/Application/EdFi.Ods.AdminApp.E2E.Tests
-      - name: Get Docker logs
-        if: failure()
-        run: |
-          mkdir docker-logs
-          docker logs ed-fi-db-admin > docker-logs/ed-fi-db-admin.log
-          docker logs ed-fi-ods-adminapp > docker-logs/ed-fi-adminapp.log
-      - name: Upload Docker logs
-        if: failure()
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
-        with:
-          name: docker-logs
-          path: docker-logs/
-          retention-days: 10
-      - name: Transform results
-        if: success() || failure()
-        run: python ./resultparser.py
-        working-directory: main/Application/EdFi.Ods.AdminApp.E2E.Tests
-      - name: Upload results
-        if: success() || failure()
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
-        with:
-          name: test-results
-          path: main/Application/EdFi.Ods.AdminApp.E2E.Tests/reports/playwright-results.xml
-          retention-days: 10
-      - name: Upload execution traces
-        if: failure()
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
-        with:
-          name: playwright-execution-traces
-          path: main/Application/EdFi.Ods.AdminApp.E2E.Tests/traces
-          retention-days: 10
+      # - name: Get Docker logs
+      #   if: failure()
+      #   run: |
+      #     mkdir docker-logs
+      #     docker logs ed-fi-db-admin > docker-logs/ed-fi-db-admin.log
+      #     docker logs ed-fi-ods-adminapp > docker-logs/ed-fi-adminapp.log
+      # - name: Upload Docker logs
+      #   if: failure()
+      #   uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+      #   with:
+      #     name: docker-logs
+      #     path: docker-logs/
+      #     retention-days: 10
+      # - name: Transform results
+      #   if: success() || failure()
+      #   run: python ./resultparser.py
+      #   working-directory: main/Application/EdFi.Ods.AdminApp.E2E.Tests
+      # - name: Upload results
+      #   if: success() || failure()
+      #   uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+      #   with:
+      #     name: test-results
+      #     path: main/Application/EdFi.Ods.AdminApp.E2E.Tests/reports/playwright-results.xml
+      #     retention-days: 10
+      # - name: Upload execution traces
+      #   if: failure()
+      #   uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+      #   with:
+      #     name: playwright-execution-traces
+      #     path: main/Application/EdFi.Ods.AdminApp.E2E.Tests/traces
+      #     retention-days: 10
