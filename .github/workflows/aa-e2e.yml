@@ -30,6 +30,7 @@ jobs:
         with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Docker
           path: ods-docker
+          ref: my-branch
       - name: Copy files to Docker repo
         run: |
           cp -r ./main/eng/test-certs/ssl ./ods-docker
@@ -41,7 +42,7 @@ jobs:
           chmod +x ./main/Application/EdFi.Ods.AdminApp.E2E.Tests/gh-action-setup/set-versions.sh
           ./main/Application/EdFi.Ods.AdminApp.E2E.Tests/gh-action-setup/set-versions.sh
       - name: Run ODS
-        run: docker-compose -f ./ods-docker/Compose/pgsql/compose-aa-build.yml --env-file ./main/Application/EdFi.Ods.AdminApp.E2E.Tests/gh-action-setup/.automation.env up -d
+        run: docker-compose -f ./main/Application/EdFi.Ods.AdminApp.E2E.Tests/gh-action-setup/compose-aa-build.yml --env-file ./main/Application/EdFi.Ods.AdminApp.E2E.Tests/gh-action-setup/.automation.env up -d
       - name: Verify ODS Health
         run: |
           chmod +x ./main/Application/EdFi.Ods.AdminApp.E2E.Tests/gh-action-setup/inspect.sh
