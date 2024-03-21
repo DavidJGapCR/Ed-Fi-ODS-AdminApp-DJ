@@ -1,3 +1,3 @@
 docker ps -a
 
-docker logs
+docker logs ed-fi-ods-adminapp
